@@ -6,12 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-org/test-suite'
-    targetRevision: HEAD
+    repoURL: 'https://github.com/Madhushankha/microservice-test-suite'
+    targetRevision: develop
     path: manifests
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: test
+    namespace: base-platform
   syncPolicy:
     automated:
       selfHeal: true

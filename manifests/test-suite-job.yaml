@@ -10,13 +10,8 @@ spec:
     spec:
       containers:
       - name: test-runner
-        image: your-dockerhub-username/microservice-tests:latest
-        env:
-        - name: BASE_URL
-          value: "http://analytics-service.base-platform.svc.cluster.local"
-        - name: ORDER_URL
-          value: "http://order-service.base-platform.svc.cluster.local"
-        - name: GAME_URL
-          value: "http://game-service.base-platform.svc.cluster.local"
+        image: lahiru1029/test-suite-develop:latest
+        command: ["python"]
+        args: ["test_services.py"]
       restartPolicy: Never
   backoffLimit: 1

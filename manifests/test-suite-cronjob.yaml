@@ -2,22 +2,18 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: microservice-test-cron
-  namespace: test
+  namespace: base-platform
 spec:
-  schedule: "0 */5 * * *"  # every hour (change as needed)
+  schedule: "0 */5 * * *"  # every 5th hour
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: test-runner
-            image: your-dockerhub-username/microservice-tests:latest
-            env:
-            - name: BASE_URL
-              value: "http://analytics-service.base-platform.svc.cluster.local"
-            - name: ORDER_URL
-              value: "http://order-service.base-platform.svc.cluster.local"
-            - name: GAME_URL
-              value: "http://game-service.base-platform.svc.cluster.local"
+            image: lahiru1029/test-suite-develop:latest
+            command: ["python"]
+            args: ["test_services.py"]
+            imagePullPolicy: Always
           restartPolicy: Never
       backoffLimit: 3
