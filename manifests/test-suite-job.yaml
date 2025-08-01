@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: microservice-test-job
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: test-runner
+        image: your-dockerhub-username/microservice-tests:latest
+        env:
+        - name: BASE_URL
+          value: "http://analytics-service.base-platform.svc.cluster.local"
+        - name: ORDER_URL
+          value: "http://order-service.base-platform.svc.cluster.local"
+        - name: GAME_URL
+          value: "http://game-service.base-platform.svc.cluster.local"
+      restartPolicy: Never
+  backoffLimit: 1
