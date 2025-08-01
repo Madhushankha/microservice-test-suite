@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-org/test-suite'
+    repoURL: 'https://github.com/Madhushankha/microservice-test-suite'
     targetRevision: HEAD
     path: manifests
   destination:
