@@ -1,0 +1,33 @@
+name: CI · Python Test Suite + Docker
+
+on:
+  push:
+    branches: [ master, develop ]
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: lahiru1029/test-suite-${{ github.ref_name }}
+      IMAGE_TAG: ${{ github.run_number }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            ${{ env.IMAGE_NAME }}:latest
